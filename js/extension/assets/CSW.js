@@ -1,6 +1,6 @@
 /* eslint-disable */
 // REQUIREMENTS //
-import { get } from 'mapstore2/web/client//libs/ajax';
+import { get } from 'mapstore2/web/client/libs/ajax';
 
 // FUNCTIONS //
 /**
@@ -11,7 +11,7 @@ const catalogURL2APIprefix = function(catalogURL) {
     var catalogURLParams = catalogURL.split('?');
     catalogURL = catalogURLParams[0].split('srv')[0];
     catalogURLParams = new URLSearchParams(catalogURLParams[1]);
-    var catalogAPI = catalogURL + 'srv/api/0.1/records/'
+    var catalogAPI = catalogURL + 'srv/api/records/'
     return {url: catalogAPI, params: catalogURLParams};
 };
 
