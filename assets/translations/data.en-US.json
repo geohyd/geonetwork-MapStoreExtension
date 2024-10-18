@@ -1,7 +1,7 @@
     {
     "locale": "en-US",
     "messages": {
-        "extension": {
+        "knowledgeReport": {
             "message": "Message!"
         }
     }

@@ -1,6 +1,6 @@
 /* eslint-disable */
 // REQUIREMENTS //
-import { get } from 'mapstore2/web/client/libs/ajax';
+import { get } from '@mapstore/libs/ajax';
 
 // FUNCTIONS //
 /**

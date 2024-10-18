@@ -1,17 +1,14 @@
 {
   "plugins": [
     {
-      "name": "GeonetworkExtension",
-      "glyph": "user",
-      "title": "GeoNetwork",
-      "description": "Connectivite des fiches geonetwork aux couches associees.\n Gestion des droits utilisateurs sur les couches par filtre d'organisme.",
-      "cfg": {
-        "translateAttributes" : true,
-        "multiChoicesEditor" : true,
-        "colOrganisme" : "organisme",
-        "organismeFilter" : true,
-        "millesimeLayers": true
-      }
+      "name": "KnowledgeReportExtension",
+      "dependencies": [
+        "Toolbar"
+      ],
+      "glyph": "info-sign",
+      "title": "Knowledge Report",
+      "description": "Integration du plugin Knowledge report",
+      "cfg": {}
     }
   ]
 }

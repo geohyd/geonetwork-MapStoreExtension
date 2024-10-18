@@ -9,3 +9,5 @@ web/.classpath
 web/.project
 backend/.classpath
 backend/.project
+package-lock.json
+REST/

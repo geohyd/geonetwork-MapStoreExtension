@@ -2,6 +2,7 @@
 const path = require("path");
 
 const createExtensionWebpackConfig = require('../../MapStore2/build/createExtensionWebpackConfig');
+const webpack = require("webpack");
 const CopyPlugin = require('copy-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const {name} = require('../../config');
@@ -22,6 +23,9 @@ const plugins = [
             // other files have to be placed in the root, with the same name
             return path.basename(assetPath);
         }
+    }),
+    new webpack.ProvidePlugin({
+        Buffer: ["buffer", "Buffer"]
     })
 ];
 module.exports = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});

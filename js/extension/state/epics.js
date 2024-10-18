@@ -101,9 +101,13 @@ const loadFeatureAttributeEpic = (action$, store) => {
                             // Split the matrix into a single array
                             var fCatsID = [];
                             var extendedCatalogURLS = [];
+                            console.log("fCatsIDMatrix : ", fCatsIDMatrix)
                             fCatsIDMatrix.forEach(function(ids, ii) {
-                                fCatsID = fCatsID.concat(ids);
-                                extendedCatalogURLS = extendedCatalogURLS.concat(Array.from(new Array(ids.length), x => catalogURLS[ii]));
+                                if(ids != null){
+                                    fCatsID = fCatsID.concat(ids);
+                                    extendedCatalogURLS = extendedCatalogURLS.concat(Array.from(new Array(ids.length), x => catalogURLS[ii]));
+                                }
+                                
                             })
                             // Get attributes with id related
                             return Rx.Observable.defer(() => axios.all(fCatsID.map((id, index) => API.getRecordFeatureCatalogById(extendedCatalogURLS[index], id))))
