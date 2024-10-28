@@ -1,8 +1,13 @@
-    {
+{
     "locale": "en-US",
     "messages": {
-        "knowledgeReport": {
-            "message": "Message!"
+        "millesimeManager": {
+            "title": "Gestion des millésimes",
+            "placeholder": "Sélectionner une couche",
+            "millesimeSelection": "Sélectionner une couche millésimée depuis la liste",
+            "resetMillesime": "Réinitialiser le millésime",
+            "parentSelected": "Couche parent sélectionnée",
+            "addMillesimeAsLayer": "Ajouter en tant que couche principale"
         }
     }
-}
+  }

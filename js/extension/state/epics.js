@@ -10,7 +10,8 @@ const { ADD_LAYER, REMOVE_NODE, changeLayerProperties, browseData } = require('m
 const { MAP_CONFIG_LOADED } = require('mapstore2/web/client/actions/config');
 import { UPDATE_MAP_LAYOUT } from 'mapstore2/web/client/actions/maplayout';
 import { clickOnMap } from 'mapstore2/web/client/actions/map';
-import { TOGGLE_MODE, CREATE_NEW_FEATURE, featureModified, updateFilter, customizeAttribute, updateCustomEditorsOptions } from 'mapstore2/web/client/actions/featuregrid';
+import { findGeometryProperty } from 'mapstore2/web/client/utils/ogc/WFS/base';
+import { TOGGLE_MODE, CREATE_NEW_FEATURE, featureModified, updateFilter, customizeAttribute, updateCustomEditorsOptions, setSelectionOptions } from 'mapstore2/web/client/actions/featuregrid';
 // SELECTORS
 import { clickPointSelector, mapInfoRequestsSelector } from 'mapstore2/web/client/selectors/mapInfo';
 const { typeNameSelector, describeSelector, resultsSelector } = require('mapstore2/web/client/selectors/query');
@@ -101,13 +102,11 @@ const loadFeatureAttributeEpic = (action$, store) => {
                             // Split the matrix into a single array
                             var fCatsID = [];
                             var extendedCatalogURLS = [];
-                            console.log("fCatsIDMatrix : ", fCatsIDMatrix)
                             fCatsIDMatrix.forEach(function(ids, ii) {
                                 if(ids != null){
                                     fCatsID = fCatsID.concat(ids);
                                     extendedCatalogURLS = extendedCatalogURLS.concat(Array.from(new Array(ids.length), x => catalogURLS[ii]));
                                 }
-                                
                             })
                             // Get attributes with id related
                             return Rx.Observable.defer(() => axios.all(fCatsID.map((id, index) => API.getRecordFeatureCatalogById(extendedCatalogURLS[index], id))))
@@ -129,7 +128,7 @@ const loadFeatureAttributeEpic = (action$, store) => {
                                                         if (!customEditorsOptions) {
                                                             customEditorsOptions = {
                                                                 'rules': []
-                                                            }
+                                                            };
                                                         }
                                                         var labels = [];
                                                         fca[i].values.forEach(function(value, id) {
@@ -155,29 +154,29 @@ const loadFeatureAttributeEpic = (action$, store) => {
                                                                     "defaultOption": fca[i].values[0],
                                                                     "allowEmpty": false
                                                                 }
-                                                            })
+                                                            });
                                                         }
                                                         // Add multiple choices as customeditorsoptions
-                                                        actions.push(updateCustomEditorsOptions(customEditorsOptions))
+                                                        actions.push(updateCustomEditorsOptions(customEditorsOptions));
                                                     }
                                                 }
                                             }
-                                        })
+                                        });
                                         // Trigger actions
                                         return Rx.Observable.from(actions);
                                     }
-                                    return Rx.Observable.of(loadedData('No csw catalog attributes found'))
+                                    return Rx.Observable.of(loadedData('No csw catalog attributes found'));
                                 })
                                 .catch(function(e) {
                                     console.log(e);
-                                    return Rx.Observable.of(loadError(e.message))
+                                    return Rx.Observable.of(loadError(e.message));
                                 });
                         }
                         return Rx.Observable.empty();
                     })
                     .catch(function(e) {
                         console.log(e);
-                        return Rx.Observable.of(loadError(e.message))
+                        return Rx.Observable.of(loadError(e.message));
                     });
             }
             return Rx.Observable.of(loadedData('No csw feature catalog found'));
@@ -230,7 +229,19 @@ const toggleDisplayColumnOrganismeEpic = (action$, store) => {
                                     attribute: colOrganisme
                                 }
                             }
-                            return Rx.Observable.of(updateFilter(update));
+                            // TODO: Trouver une manière plus propre d'appliquer le filtre sur l'organisme en mode "édition"
+                            // Voir featureGridChangePage dans epics/featuregrid.js qui surcharge les filtres.
+                            // Scénario idéal: multiselect -> false, updateFilter(), multiselect -> true séquentiellement
+                            const resetGeomFilter = updateFilter({
+                                attribute: findGeometryProperty(describeSelector(store.getState()))?.name,
+                                enabled: false,
+                                type: "geometry"
+                            });
+                            return Rx.Observable.of(
+                                resetGeomFilter,
+                                updateFilter(update),
+                                setSelectionOptions({multiselect: true})
+                            );
                         }
                         return Rx.Observable.empty();
                     })
@@ -365,7 +376,7 @@ const onGetMillesimesLayers = (action$, store) => {
                             var requests = [];
                             var childrensToKeep = [];
                             childrens.forEach(function(children) {
-                                if (children.id && children.mdType && children.mdType.indexOf('dataset') > -1) {
+                                if (children.id) {
                                     requests.push(API.getRecordById(catalogURL, children.id))
                                     childrensToKeep.push(children);
                                 }
@@ -402,7 +413,6 @@ const onGetMillesimesLayers = (action$, store) => {
                                                 }
                                             })
                                         })
-
                                         // Founded millesimeLayers
                                         if (millesimeLayersList.length > 0) {
                                             // Check if millesimeManagement exist already
@@ -480,7 +490,6 @@ const onGetMillesimesLayers = (action$, store) => {
                                     return Rx.Observable.of(loadError(e.message))
                                 });
                         }
-
                         if (getCFGGeonetwork('verbose')) {
                             console.log('Cannot get childrens')
                             console.groupEnd()
@@ -511,7 +520,7 @@ const onGetMillesimesLayers = (action$, store) => {
                                             var title = API.getTitleLayerFromJSON(response);
                                             var definition = API.getDefinitionLayerFromJSON(response);
                                             // Replace parent by millesime
-                                            alert('La couche ' + layer.title + ' est introuvable. Elle sera remplacÃ©e par son millÃ©sime dÃ©jÃ  sÃ©lectionnÃ©.')
+                                            alert('La couche ' + layer.title + ' est introuvable. Elle sera remplacée par son millésime déjà sélectionné.')
                                             var urlPARTS = layer.catalogURL.split('?')
                                             var catalogURLParams = new URLSearchParams(urlPARTS[1]);
                                             catalogURLParams.set('id', layer.extendedParams.millesimeManagement.currentMillesime)

@@ -295,12 +295,12 @@
           {
             "name": "GeonetworkExtension",
             "cfg" : {
-            "millesimeLayers": true,
-            "millesimeKeywords": ["millesime", "millésime", "millesimes"],
-            "translateAttributes":true,
-            "multiChoicesEditor":true,
-            "colOrganisme":"organisme",
-            "organismeFilter":true
+              "millesimeLayers": true,
+              "millesimeKeywords": ["millesime", "millésime", "millesimes"],
+              "translateAttributes":true,
+              "multiChoicesEditor":true,
+              "colOrganisme":"organisme",
+              "organismeFilter":true
             },
             "extension":true
             },

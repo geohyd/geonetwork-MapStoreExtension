@@ -41,14 +41,21 @@ const getRecordFeatureCatalogById = function(catalogURL, id) {
                                 let finalEl = {};
                                 if (cOCElement[j]['gfc:' + elName]) {
                                     let cOCel = cOCElement[j]['gfc:' + elName];
-                                    finalEl = {
-                                        name: cOCel['gfc:memberName']['gco:LocalName']['#text'],
-                                        label: cOCel['gfc:definition']['gco:CharacterString']['#text']
-                                    };
-                                    // is there any listedValue ?
-                                    if (cOCel['gfc:listedValue'] && Array.isArray(cOCel['gfc:listedValue'])) {
-                                        finalEl.values = cOCel['gfc:listedValue'].map(value => value['gfc:FC_ListedValue']['gfc:code']['gco:CharacterString']['#text']);
-                                        finalEl.labels = cOCel['gfc:listedValue'].map(value => value['gfc:FC_ListedValue']['gfc:label']['gco:CharacterString']['#text']);
+                                    const definitionValue = cOCel['gfc:definition']['gco:CharacterString'];
+                                    if (definitionValue) {
+                                        finalEl = {
+                                            name: cOCel['gfc:memberName']['gco:LocalName']['#text'],
+                                            label: definitionValue['#text']
+                                        };
+                                        // is there any listedValue ?
+                                        const listedValue = cOCel['gfc:listedValue'];
+                                        if (listedValue && Array.isArray(listedValue)) {
+                                            finalEl.values = listedValue.map(value => value['gfc:FC_ListedValue']['gfc:code']['gco:CharacterString']['#text']);
+                                            finalEl.labels = listedValue.map(value => value['gfc:FC_ListedValue']['gfc:label']['gco:CharacterString']['#text']);
+                                        }
+                                    }
+                                    else {
+                                        continue;
                                     }
                                 }
                                 // Append the result
@@ -88,7 +95,6 @@ const getRecordById = function(catalogURL, id, extendedParams) {
             .then((response) => {
                 if (response) {
                     var json = response.data;
-
                     try {
                         if (extendedParams) {
                             if (extendedParams.related && extendedParams.related === 'children') {

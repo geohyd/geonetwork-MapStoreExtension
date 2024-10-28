@@ -1,60 +1,13 @@
-    {
-    "locale": "fr-FR",
-    "messages": {
-        "knowledgeReport": {
-            "message": "Message!",
-            "tooltip": "Porter à la connaissance",
-            "title": "Porter à la connaissance",
-            "WPS": {
-              "describeProcess": "Service non disponible",
-              "getLayerlist": "Echec de la requête 'getLayerList'",
-              "intersection": "Impossible d'executer l'intersection",
-              "createRecordsIntersected": "Impossible de créer les couches intersectées"
-            },
-            "notification": {
-              "createLayers": "Les couches intersectées ont bien été ajouté"
-            },
-            "dropZone": {
-              "heading": "<p> <h4> Déposez votre GeoJSON/Shapefile </h4> <small> ou </small> </p>",
-              "selectFiles": "Sélectionnez un fichier...",
-              "infoSupported": "<p><small>Fichier pris en charge : extension .json, .geojson ou .zip</small></p>",
-              "note": "<p><small><i><strong> note </strong>: Si vous êtes déjà en cours d'importations de géométries, celles-ci seront écrasées.</i></small></p>"
-            },
-            "drawZone": {
-              "heading": "<p> <h4> Commencer à dessiner votre polygone sur la carte </h4> </p>",
-              "stopDrawing": "Terminer le dessin",
-              "cancelDrawing": "Annuler le dessin",
-              "featureLength": "Nombre de polygone dessiné : "
-            },
-            "modal": {
-              "title": "Intersection de données",
-              "datasetsList": "Liste des couches à interroger",
-              "intersectionExecution": "Exécuter l'intersection",
-              "reportExecution": "Génération du rapport",
-              "listSelection": "Sélectionner une couche",
-              "loadGeoJSON": "Charger une géométrie",
-              "loadNewGeoJSON": "Charger une nouvelle géométrie",
-              "startDrawing": "Dessiner sur la carte",
-              "newDrawing": "Redessiner sur la carte"
-            },
-            "errors": {
-              "fileNotSupported": "Fichier non pris en charge",
-              "unknownError": "il y a eu une erreur inconnue lors de l'importation",
-              "projectionNotSupported": "La projection du/des fichier(s) que vous essayez d'importer n'est pas prise en charge",
-              "fileBeyondBoundaries": "Le fichier ne peut pas être importé car il ne correspond pas aux limites de la carte (Si le fichier est un geojson, celui-ci doit être en EPSG:4326)"
-            },
-            "footer": {
-              "cancel": "Annuler",
-              "validate": "Terminer"
-            },
-            "dialog": {
-              "title": "Import de la géométrie d'intersection"
-            },
-            "success": {
-              "clickToTerminate": "Cliquer sur 'Terminer' pour importer vos données",
-              "autorizeGeom": "Autoriser le service à fermer les lignes.",
-              "intersectResultLabel" : "Couche(s) retournée(s) avec un résultat"
-            }
-        }
-    }
+{
+  "locale": "fr-FR",
+  "messages": {
+      "millesimeManager": {
+          "title": "Gestion des millésimes",
+          "placeholder": "Sélectionner une couche",
+          "millesimeSelection": "Sélectionner une couche millésimée depuis la liste",
+          "resetMillesime": "Réinitialiser le millésime",
+          "parentSelected": "Couche parent sélectionnée",
+          "addMillesimeAsLayer": "Ajouter en tant que couche principale"
+      }
+  }
 }

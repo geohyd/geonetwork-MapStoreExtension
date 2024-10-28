@@ -154,7 +154,7 @@ class GeoNetworkComponent extends React.Component {
                                                         <div className="row">
                                                             <div className="col-xs-10"
                                                                 onClick={() => this.props.onClickMillesime(this.props.parentSelected.id, millesime.id)}>
-                                                                <strong>{millesime.title.fre}</strong>
+                                                                <strong>{millesime.title.fre || millesime.title.eng}</strong>
                                                             </div>
                                                         </div>
                                                     </ListGroupItem>
