@@ -13,7 +13,7 @@
     },
     "geoStoreUrl": "rest/geostore/",
     "mailingList": "https://groups.google.com/forum/#!forum/mapstore-users",
-    "printUrl": "pdf/info.json",
+    "printUrl": "https://opengis.geo-hyd.net/mapstore/pdf/info.json",
     "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
     "mapquestApiKey": "__API_KEY_MAPQUEST__",
     "initialMapFilter": "",
@@ -97,6 +97,18 @@
                 "type": "wmts",
                 "title": "GeoSolutions GeoServer WMTS",
                 "autoload": false
+              },
+              "ogis_csw": {
+                "url": "https://opengis.geo-hyd.net/geonetwork/srv/fre/csw",
+                "type": "csw",
+                "title": "OGIS CSW",
+                "autoload": false
+              },
+              "oddc_csw": {
+                "url": "https://georchestra.ac-corse.fr/geonetwork/srv/fre/csw",
+                "type": "csw",
+                "title": "ODDC CSW",
+                "autoload": false
               }
             },
             "staticServices": {
@@ -172,7 +184,8 @@
       }
     },
     "plugins": {
-        "mobile": [{
+        "mobile": [
+          {
                 "name": "Map",
                 "cfg": {
                     "mapOptions": {
@@ -278,7 +291,19 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "SampleExtension",
+        "desktop": ["Details",
+          {
+            "name": "GeonetworkExtension",
+            "cfg" : {
+              "millesimeLayers": true,
+              "millesimeKeywords": ["millesime", "millésime", "millesimes"],
+              "translateAttributes":true,
+              "multiChoicesEditor":true,
+              "colOrganisme":"organisme",
+              "organismeFilter":true
+            },
+            "extension":true
+            },
           {
             "name": "Map",
             "cfg": {

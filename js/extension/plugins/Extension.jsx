@@ -11,12 +11,12 @@ import geonetworkExtension from '../state/reducers';
 
 import SideCard from '../components/SideCardM';
 const {ListGroup, ListGroupItem, Glyphicon: GlyphiconRB, Button: ButtonRB} = require('react-bootstrap');
-import tooltip from 'mapstore2/web/client/components/misc/enhancers/tooltip';
+import tooltip from '@mapstore/components/misc/enhancers/tooltip';
 const Button = tooltip(ButtonRB);
 const { DropdownList } = require('react-widgets');
 
 import {createSelector} from 'reselect';
-import {layersSelector} from 'mapstore2/web/client/selectors/layers';
+import {layersSelector} from '@mapstore/selectors/layers';
 
 import Message from "mapstore2/web/client/components/I18N/Message";
 
@@ -154,7 +154,7 @@ class GeoNetworkComponent extends React.Component {
                                                         <div className="row">
                                                             <div className="col-xs-10"
                                                                 onClick={() => this.props.onClickMillesime(this.props.parentSelected.id, millesime.id)}>
-                                                                <strong>{millesime.title.fre}</strong>
+                                                                <strong>{millesime.title.fre || millesime.title.eng}</strong>
                                                             </div>
                                                         </div>
                                                     </ListGroupItem>

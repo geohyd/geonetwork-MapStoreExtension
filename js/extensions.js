@@ -14,3 +14,4 @@ import { name } from '../config';
 export default {
     [name]: createPlugin(name, Extension)
 };
+
