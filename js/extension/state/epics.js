@@ -210,8 +210,7 @@ const toggleDisplayColumnOrganismeEpic = (action$, store) => {
                             console.log(error)
                             return Rx.Observable.of(loadError(error));
                         }
-
-                        if ( features && find(describeFeatureType.featureTypes[0].properties, {name: colOrganisme}) && user.role == "ADMIN" && org) {
+                        if ( features && find(describeFeatureType.featureTypes[0].properties, {name: colOrganisme}) && org) {
                             // If EDIT add colOrganisme filtering else remove it
                             if (action.mode === 'EDIT') {
                                 var update = {
@@ -282,7 +281,7 @@ const editNewFeatureOrganisme = (action$, store) => {
                             return Rx.Observable.of(loadError(error));
                         }
 
-                        if ( features && find(describeFeatureType.featureTypes[0].properties, {name: colOrganisme}) && user.role == "ADMIN" && org) {
+                        if ( features && find(describeFeatureType.featureTypes[0].properties, {name: colOrganisme}) && org) {
                             var updated = {};
                             updated[colOrganisme] = org.shortName;
                             return Rx.Observable.of(featureModified(state.featuregrid.newFeatures, updated));
